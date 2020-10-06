@@ -1,0 +1,26 @@
+.dashboard {
+    display: grid;
+    grid-template-areas:
+    "controls controls"
+    "chart panel";
+
+    .controls {
+        grid-area: controls;
+    }
+
+    .chart {
+        grid-area: chart;
+    }
+
+    .panel-sales {
+        grid-area: panel;
+
+        &__sum {
+           display: none;
+
+            &--visible {
+                display: block;
+             }
+         }
+    }
+}

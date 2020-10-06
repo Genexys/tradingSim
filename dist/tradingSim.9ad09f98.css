@@ -1,0 +1,29 @@
+.dashboard {
+    display: grid;
+    grid-template-areas:
+    "controls controls"
+    "chart panel";
+}
+
+    .dashboard .controls {
+        grid-area: controls;
+    }
+
+    .dashboard .chart {
+        grid-area: chart;
+    }
+
+    .dashboard .panel-sales {
+        grid-area: panel;
+    }
+
+    .dashboard .panel-sales__sum {
+           display: none;
+         }
+
+    .dashboard .panel-sales__sum--visible {
+                display: block;
+             }
+
+
+/*# sourceMappingURL=/tradingSim.9ad09f98.css.map */

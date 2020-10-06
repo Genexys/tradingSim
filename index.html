@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Chart</title>
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/luxon@1.24.1"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@0.2.1"></script>-->
+<!--    <script src="chartjs-chart-financial.js" type="text/javascript"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+   <!-- <div class="dashboard-chart">
+        <canvas id="chart" width="400" height="400"></canvas>
+    </div>-->
+
+    <div class="dashboard">
+        <div class="controls">
+            <button id="next">Next</button>
+            <button id="speed_dec">--</button>
+            <button id="play">Play</button>
+            <button id="speed_inc">++</button>
+            <button id="stop">Stop</button>
+        </div>
+        <div id="tvchart" class="chart"></div>
+        <div class="panel-sales">
+
+            <ul id="buy-table" class="panel-sales__sum">
+                <li>
+                    <span>OPEN:</span>
+                    <span id="buy-open"></span>
+                </li>
+                <li>
+                    <span>HIGH:</span>
+                    <span id="buy-high"></span>
+                </li>
+                <li>
+                    <span>LOW:</span>
+                    <span id="buy-low"></span>
+                </li>
+                <li>
+                    <span>CLOSE:</span>
+                    <span id="buy-close"></span>
+                </li>
+            </ul>
+
+            <button id="buy-btn" class="panel-sales__buy">
+                buy
+            </button>
+        </div>
+    </div>
+
+<!--   <div id='myDiv'>-->
+
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
