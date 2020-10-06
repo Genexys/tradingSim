@@ -8916,6 +8916,8 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 require("babel-polyfill");
 
+var _this = void 0;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -8946,7 +8948,7 @@ var candleSeries = chart.addCandlestickSeries();
 
 var getData = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-    var res, data, dataReverse, dataTransform, firstDataStocks, secondDataStocks, secondDataStocksTransform, nextBtn, playBtn, incBtn, decBtn, stopBtn, buyBtn, buyTable, buyOpen, buyHigh, buyLow, buyClose, count, timeDrawInit, timeDrawCount, timerDraw, buySum, markers, updateChart, getTimer, playDrawChart, incTime, decTime;
+    var res, data, dataReverse, dataTransform, firstDataStocks, secondDataStocks, secondDataStocksTransform, nextBtn, playBtn, incBtn, decBtn, stopBtn, buyBtn, sellBtn, buyTable, buyOpen, buyHigh, buyLow, buyItemList, sellItemList, diff, diffNum, buyClose, sellClose, count, timeDrawInit, timeDrawCount, timerDraw, buySum, sellSum, markers, updateChart, getTimer, playDrawChart, incTime, decTime;
     return _regenerator.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -9023,15 +9025,22 @@ var getData = /*#__PURE__*/function () {
             decBtn = document.getElementById('speed_dec');
             stopBtn = document.getElementById('stop');
             buyBtn = document.getElementById('buy-btn');
+            sellBtn = document.getElementById('buy-sell');
             buyTable = document.getElementById('buy-table');
             buyOpen = document.getElementById('buy-open');
             buyHigh = document.getElementById('buy-high');
             buyLow = document.getElementById('buy-low');
+            buyItemList = document.getElementById('buy');
+            sellItemList = document.getElementById('sell');
+            diff = document.getElementById('diff');
+            diffNum = document.getElementById('diff-num');
             buyClose = document.getElementById('buy-close');
+            sellClose = document.getElementById('sell-close');
             count = 1;
             timeDrawInit = 200;
             timeDrawCount = 200;
             markers = [];
+            sellBtn.setAttribute('disabled', true);
 
             updateChart = function updateChart() {
               candleSeries.update(secondDataStocksTransform[count - 1]);
@@ -9090,10 +9099,10 @@ var getData = /*#__PURE__*/function () {
               clearTimeout(timerDraw);
               console.log(firstDataStocks);
               buySum = secondDataStocksTransform[count - 1];
-              buyTable.classList.add('panel-sales__sum--visible');
-              buyOpen.textContent = buySum.open;
-              buyHigh.textContent = buySum.high;
-              buyLow.textContent = buySum.low;
+              buyItemList.classList.add('active'); // buyOpen.textContent = buySum.open;
+              // buyHigh.textContent = buySum.high;
+              // buyLow.textContent = buySum.low;
+
               buyClose.textContent = buySum.close; // console.log(dataTransform[dataTransform.length - 1])
 
               markers.push({
@@ -9103,7 +9112,35 @@ var getData = /*#__PURE__*/function () {
                 shape: 'circle',
                 text: 'Buy'
               });
-              candleSeries.setMarkers(markers); // console.log(buySum)
+              candleSeries.setMarkers(markers); // console.log(con)
+
+              this.setAttribute('disabled', 'true');
+              sellBtn.removeAttribute('disabled');
+            });
+            sellBtn.addEventListener('click', function () {
+              timeDrawInit = 200;
+              clearTimeout(timerDraw);
+              console.log(firstDataStocks);
+              sellSum = secondDataStocksTransform[count - 1];
+              sellItemList.classList.add('active');
+              diff.classList.add('active'); // buyOpen.textContent = buySum.open;
+              // buyHigh.textContent = buySum.high;
+              // buyLow.textContent = buySum.low;
+
+              sellClose.textContent = sellSum.close;
+              diffNum.textContent = ((sellSum.close - buySum.close) / buySum.close * 100).toFixed(2);
+              console.log((sellSum.close - buySum.close) / buySum.close * 100);
+              markers.push({
+                time: sellSum.time,
+                position: 'aboveBar',
+                color: '#009387',
+                shape: 'circle',
+                text: 'Sell'
+              });
+              candleSeries.setMarkers(markers);
+
+              _this.setAttribute('disabled', 'true'); // console.log(buySum)
+
             });
             chart.subscribeClick(function (param) {
               console.log(param.seriesPrices.values());
@@ -9219,7 +9256,7 @@ var getData = /*#__PURE__*/function () {
             //     }
             // }, 200);
 
-          case 39:
+          case 47:
           case "end":
             return _context.stop();
         }
@@ -9230,25 +9267,32 @@ var getData = /*#__PURE__*/function () {
   return function getData() {
     return _ref.apply(this, arguments);
   };
-}(); // const isPrime = (num) => {
-//     let i;
-//     if (num <= 1) return false;
-//     for (let count = 2; num % count !== 0; count++) {
-//         if (num / 2 < count) {
-//             i = 1;
-//         }
-//
-//         if (i === 1) {
-//             return true;
-//         }
-//     }
-//     return false;
-// };
-// console.log(isPrime(1))
+}();
+
+var isPrime = function isPrime(num) {
+  var i;
+  if (num <= 1) return false;
+
+  for (var _count = 2; num % _count !== 0; _count++) {
+    console.log(num / 2, '<', _count);
+    console.log('--------');
+
+    if (num / 2 < _count) {
+      i = 1;
+    }
+
+    if (i === 1) {
+      return true;
+    }
+  }
+
+  return false;
+}; // console.log(isPrime(1))
 // console.log(-3, isPrime(-3))
 // console.log(4, isPrime(4))
-// console.log(7, isPrime(7))
-// // console.log(isPrime(10))
+
+
+console.log(7, isPrime(7)); // // console.log(isPrime(10))
 // console.log(21, isPrime(21))
 // console.log(2, isPrime(2))
 // console.log(3, isPrime(3))
@@ -9257,7 +9301,6 @@ var getData = /*#__PURE__*/function () {
 // isPrime(10);    // false
 // isPrime(21);    // true
 
-
 getData().catch(function (err) {
   return log(err);
 });
@@ -9265,7 +9308,7 @@ getData().catch(function (err) {
 "use strict";
 
 require("./lightweightChart");
-},{"./lightweightChart":"lightweightChart.js"}],"C:/Users/magic/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./lightweightChart":"lightweightChart.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9293,7 +9336,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63227" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -9469,5 +9512,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/magic/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/tradingSim.e31bb0bc.js.map

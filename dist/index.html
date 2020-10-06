@@ -28,26 +28,43 @@
         <div class="panel-sales">
 
             <ul id="buy-table" class="panel-sales__sum">
-                <li>
-                    <span>OPEN:</span>
-                    <span id="buy-open"></span>
-                </li>
-                <li>
-                    <span>HIGH:</span>
-                    <span id="buy-high"></span>
-                </li>
-                <li>
-                    <span>LOW:</span>
-                    <span id="buy-low"></span>
-                </li>
-                <li>
-                    <span>CLOSE:</span>
+<!--                <li>-->
+<!--                    <span>OPEN:</span>-->
+<!--                    <span id="buy-open"></span>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <span>HIGH:</span>-->
+<!--                    <span id="buy-high"></span>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <span>LOW:</span>-->
+<!--                    <span id="buy-low"></span>-->
+<!--                </li>-->
+
+                <li class="buy-list" id="buy">
+                    <span>BUY CLOSE:</span>
                     <span id="buy-close"></span>
+                </li>
+
+
+                <li class="sell-list" id="sell">
+                    <span>SELL CLOSE:</span>
+                    <span id="sell-close"></span>
+                </li>
+
+
+                <li class="diff" id="diff">
+                    <span>разница:</span>
+                    <span id="diff-num"></span>
                 </li>
             </ul>
 
             <button id="buy-btn" class="panel-sales__buy">
                 buy
+            </button>
+
+            <button id="buy-sell" class="panel-sales__sell">
+                sell
             </button>
         </div>
     </div>

@@ -80,18 +80,27 @@ const candleSeries = chart.addCandlestickSeries();
         const decBtn = document.getElementById('speed_dec');
         const stopBtn = document.getElementById('stop');
         const buyBtn = document.getElementById('buy-btn');
+        const sellBtn = document.getElementById('buy-sell');
         const buyTable = document.getElementById('buy-table');
         const buyOpen = document.getElementById('buy-open');
         const buyHigh = document.getElementById('buy-high');
         const buyLow = document.getElementById('buy-low');
+        const buyItemList = document.getElementById('buy');
+        const sellItemList = document.getElementById('sell');
+        const diff = document.getElementById('diff');
+        const diffNum = document.getElementById('diff-num');
         const buyClose = document.getElementById('buy-close');
+        const sellClose = document.getElementById('sell-close');
 
         let count = 1;
         let timeDrawInit = 200;
         let timeDrawCount = 200;
         let timerDraw;
         let buySum;
+        let sellSum;
         var markers = [];
+
+        sellBtn.setAttribute('disabled', true)
 
         const updateChart = () => {
             candleSeries.update(secondDataStocksTransform[count - 1]);
@@ -159,7 +168,7 @@ const candleSeries = chart.addCandlestickSeries();
             clearTimeout(timerDraw)
         });
 
-        buyBtn.addEventListener('click', () => {
+        buyBtn.addEventListener('click', function() {
             timeDrawInit = 200;
             clearTimeout(timerDraw)
 
@@ -167,17 +176,48 @@ const candleSeries = chart.addCandlestickSeries();
 
             buySum = secondDataStocksTransform[count - 1];
 
-            buyTable.classList.add('panel-sales__sum--visible');
+            buyItemList.classList.add('active');
 
-            buyOpen.textContent = buySum.open;
-            buyHigh.textContent = buySum.high;
-            buyLow.textContent = buySum.low;
+            // buyOpen.textContent = buySum.open;
+            // buyHigh.textContent = buySum.high;
+            // buyLow.textContent = buySum.low;
             buyClose.textContent = buySum.close;
 
             // console.log(dataTransform[dataTransform.length - 1])
 
             markers.push({ time: buySum.time, position: 'aboveBar', color: '#f68410', shape: 'circle', text: 'Buy' });
             candleSeries.setMarkers(markers);
+
+            // console.log(con)
+
+            this.setAttribute('disabled', 'true')
+            sellBtn.removeAttribute('disabled')
+        });
+
+        sellBtn.addEventListener('click', () => {
+            timeDrawInit = 200;
+            clearTimeout(timerDraw)
+
+            console.log(firstDataStocks)
+
+            sellSum = secondDataStocksTransform[count - 1];
+
+            sellItemList.classList.add('active');
+            diff.classList.add('active');
+
+            // buyOpen.textContent = buySum.open;
+            // buyHigh.textContent = buySum.high;
+            // buyLow.textContent = buySum.low;
+            sellClose.textContent = sellSum.close;
+
+            diffNum.textContent = (( ( sellSum.close - buySum.close) / buySum.close ) * 100).toFixed(2);
+
+            console.log(( ( sellSum.close - buySum.close) / buySum.close ) * 100)
+
+            markers.push({ time: sellSum.time, position: 'aboveBar', color: '#009387', shape: 'circle', text: 'Sell' });
+            candleSeries.setMarkers(markers);
+
+            this.setAttribute('disabled', 'true')
 
             // console.log(buySum)
         });
@@ -289,25 +329,29 @@ const candleSeries = chart.addCandlestickSeries();
         // }, 200);
     }
 
-// const isPrime = (num) => {
-//     let i;
-//     if (num <= 1) return false;
-//     for (let count = 2; num % count !== 0; count++) {
-//         if (num / 2 < count) {
-//             i = 1;
-//         }
-//
-//         if (i === 1) {
-//             return true;
-//         }
-//     }
-//     return false;
-// };
+const isPrime = (num) => {
+    let i;
+    if (num <= 1) return false;
+    for (let count = 2; num % count !== 0; count++) {
+
+        console.log(num / 2, '<', count)
+        console.log('--------')
+
+        if (num / 2 < count) {
+            i = 1;
+        }
+
+        if (i === 1) {
+            return true;
+        }
+    }
+    return false;
+};
 
     // console.log(isPrime(1))
     // console.log(-3, isPrime(-3))
     // console.log(4, isPrime(4))
-    // console.log(7, isPrime(7))
+    console.log(7, isPrime(7))
     // // console.log(isPrime(10))
     // console.log(21, isPrime(21))
     // console.log(2, isPrime(2))

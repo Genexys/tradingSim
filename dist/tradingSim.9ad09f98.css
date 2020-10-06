@@ -17,13 +17,35 @@
         grid-area: panel;
     }
 
-    .dashboard .panel-sales__sum {
-           display: none;
-         }
+    /*display: none;*/
 
     .dashboard .panel-sales__sum--visible {
                 display: block;
              }
+
+.buy-list {
+    display: none;
+}
+
+.buy-list.active {
+        display: block;
+    }
+
+.sell-list {
+    display: none;
+}
+
+.sell-list.active {
+        display: block;
+    }
+
+.diff {
+    display: none;
+}
+
+.diff.active {
+        display: block;
+    }
 
 
 /*# sourceMappingURL=/tradingSim.9ad09f98.css.map */

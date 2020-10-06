@@ -16,11 +16,35 @@
         grid-area: panel;
 
         &__sum {
-           display: none;
+           /*display: none;*/
 
             &--visible {
                 display: block;
              }
          }
+    }
+}
+
+.buy-list {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.sell-list {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.diff {
+    display: none;
+
+    &.active {
+        display: block;
     }
 }
